@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="1.0">
+	<application setting='false'>
+		<name><![CDATA[看表情猜成语]]></name>
+		<identifie><![CDATA[css9_emoji]]></identifie>
+		<version><![CDATA[1.0.8]]></version>
+		<ability><![CDATA[看表情猜成语]]></ability>
+		<type><![CDATA[other]]></type>
+		<description><![CDATA[看表情猜成语]]></description>
+		<author><![CDATA[css9]]></author>
+		<url><![CDATA[]]></url>
+		<setting><![CDATA[]]></setting>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+			<message type="image" />
+			<message type="voice" />
+			<message type="video" />
+			<message type="location" />
+			<message type="link" />
+			<message type="subscribe" />
+			<message type="unsubscribe" />
+			<message type="qr" />
+			<message type="trace" />
+			<message type="click" />
+			<message type="enter" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="image" />
+			<message type="voice" />
+			<message type="video" />
+			<message type="location" />
+			<message type="link" />
+			<message type="subscribe" />
+			<message type="qr" />
+			<message type="trace" />
+			<message type="click" />
+			<message type="enter" />
+		</handles>
+		<supports> 
+            <item type="app" /> 
+        </supports>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+		<rule>
+			<entry title="规则" do="rule" state="" direct="false" />
+		</rule>
+		<menu>
+			<entry title="词根录入" do="emojiSetting" state="" direct="false" />
+			<entry title="词根录入" do="emoji" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

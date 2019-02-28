@@ -1,0 +1,112 @@
+{template 'common/header'}
+<link rel="stylesheet" type="text/css" href="{$_W['siteroot']}web/resource/components/emoji/emotions.css">
+<ul class="we7-page-tab" style="margin-top:-20px;">
+	<li class="active"><a href="javascript:void(0)">看表情猜成语 </a></li>
+</ul>
+<div class="main">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				增加词根
+			</div>
+			<div class="panel-body">
+				<table class="table table-no-border">
+					<thead>
+						<th>表情</th>
+						<th>表情对应中文字(用英文逗号隔开，例乐,喜)</th>
+					</thead>
+					<tbody>
+						{loop $emoji1 $index $item}
+						<tr>
+							<td width="50">
+								<span class="emoji emoji{php echo strtolower(str_replace(']','',str_replace('[U+','',$item['code'])));}"></span>
+							</td>
+							<td width="50%">
+								<input data-id="{$item['id']}" value="{$item['words']}" type="text" class="form-control" name="emoji{$index}">
+							</td>
+							<td width="30">
+								<input type="button" class="btn btn-primary update" value="更新">
+							</td>
+							<td class="msg">
+								
+							</td>
+						</tr>
+						{/loop}
+					</tbody>
+				</table>
+				<table class="emotions table" cellspacing="0" cellpadding="0">
+					<tbody>
+						{loop $emoji2 $index $item}
+						<tr>
+							<td width="30">
+								<div class="eItem" style="background-position:-{php echo $index*24;}px 0" data-title="${item['name']}" data-code="${item['name']}" data-gifurl="http://res.mail.qq.com/zh_CN/images/mo/DEFAULT2/0.gif">
+								</div>
+							</td>
+							<td width="50%">
+								<input data-id="{$item['id']}" type="text" value="{$item['words']}" class="form-control" name="emoji{$index}">
+							</td>
+							<td width="30">
+								<input type="button" class="btn btn-primary update" value="更新">
+							</td>
+							<td class="msg">
+								
+							</td>
+						</tr>
+						{/loop}
+					</tbody>
+				</table>
+			</div>
+			<div class="panel-footer">
+				<input type="button" id="sure" name="" class="btn btn-block btn-primary" value="全部更新">
+			</div>
+		</div>
+</div>
+<script type="text/javascript">
+	require(['jquery'], function($, u){
+		$(function(){
+			$('.update').on('click',function(){
+				var $this = $(this);
+				var word = $this.closest('tr').find('input.form-control');
+				updateWord(word.data('id'),word.val(),function(data){
+					$this.closest('tr').find('.msg').html('<div style="margin:0;padding-top:8px;padding-bottom:8px;" class="alert alert-success">'+data+'</div>')
+					setTimeout(function(){
+						$this.closest('tr').find('.alert').remove();
+					},1500)
+				});
+			})
+			$('#sure').on('click',function(){
+				var $this = $(this);
+				var row = $('.table');
+				row.each(function(){
+					var col = $(this).find('tbody tr');
+					col.each(function(){
+						//console.log($(this).find('input.form-control'))
+						$(this).find('.update').trigger('click');
+					})
+				})
+			})
+		});
+		function updateWord(id,word,fn){
+			var url = '{php echo $this->createWebUrl("update") }';
+			var data = {}
+			if(word === '') return false;
+			if(typeof id === 'string' || typeof id === 'number'){
+				data.id = id
+				data.word = word
+			}else if(typeof id === 'object'){
+
+			}
+			$.ajax({
+				url:url,
+				type:'post',
+				dataType:'json',
+				data:data,
+			}).done(function(data){
+				if(data.type === 'info'){
+					fn(data.message)
+				}else{
+					fn('更新失败')
+				}
+			})
+		}
+	});
+</script>

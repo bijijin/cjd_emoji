@@ -3,7 +3,7 @@
 	<application setting='false'>
 		<name><![CDATA[看表情猜成语]]></name>
 		<identifie><![CDATA[css9_emoji]]></identifie>
-		<version><![CDATA[1.1.2]]></version>
+		<version><![CDATA[1.2.6]]></version>
 		<ability><![CDATA[看表情猜成语]]></ability>
 		<type><![CDATA[other]]></type>
 		<description><![CDATA[看表情猜成语]]></description>
